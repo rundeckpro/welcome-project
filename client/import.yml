@@ -1,0 +1,12 @@
+projects:
+  - name: welcome-project
+    archive: projects/welcome-project.rdproject.jar
+
+keys:
+  - path: node/node.key
+    type: privateKey
+    file: data/linux_id_rsa
+
+acls:
+  - name: HealthCheckACL
+    file: data/healthck.acl

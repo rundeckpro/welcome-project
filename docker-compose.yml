@@ -1,0 +1,81 @@
+version: '3'
+services:
+    rundeck:
+        container_name: rundeck
+        build:
+          context: rundeck
+          args:
+            RUNDECK_IMAGE: ${RUNDECK_IMAGE:-rundeckpro/enterprise:3.3.8}
+        links:
+          - mysql
+        environment:
+            RUNDECK_GRAILS_URL: http://localhost:4440
+            RUNDECK_DATABASE_DRIVER: org.mariadb.jdbc.Driver
+            RUNDECK_DATABASE_USERNAME: rundeck
+            RUNDECK_DATABASE_PASSWORD: rundeck
+            RUNDECK_DATABASE_URL: jdbc:mariadb://mysql/rundeck?autoReconnect=true&useSSL=false
+            RUNDECK_SECURITY_DBLOGIN_ENABLED: 'true'
+            RUNDECK_SECURITY_DBLOGIN_CREATEADMINUSERANDROLES: 'true'
+            RUNDECK_SECURITY_DBLOGIN_ADMINUSERNAME: admin
+            RUNDECK_SECURITY_DBLOGIN_ADMINPASSWORD: admin
+            RUNDECK_FEATURE_UINEXT_NAME: uiNext
+            RUNDECK_FEATURE_UINEXT_ENABLED: 'true'
+            RUNDECK_PLUGIN_CLUSTER_REMOTEEXECUTION_ENABLED: 'false'
+        ports:
+          - 4440:4440
+        volumes:
+          - ${RUNDECK_LICENSE_FILE:-/dev/null}:/home/rundeck/etc/rundeckpro-license.key
+    mysql:
+        container_name: mysql
+        image: mysql:5.7
+        expose:
+          - 3306
+        environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_DATABASE=rundeck
+          - MYSQL_USER=rundeck
+          - MYSQL_PASSWORD=rundeck
+    client:
+      container_name: client
+      build:
+        context: client
+      environment:
+        CONFIG_FILE: import.yml
+        RUNDECK_URL: http://rundeck:4440
+        RUNDECK_API_URL: http://localhost:4440
+        RUNDECK_TOKEN: u5gJoKU3NpS6IC4lFmPQFfDkUlZnQOXp
+      volumes:
+        - ./data/linux_id_rsa:/rundeck-cli/data/linux_id_rsa
+    node:
+      container_name: node1
+      build:
+        context: node
+      ports:
+         - "22"
+      environment:
+        - SSHD_PORT=22
+      volumes:
+        - ./data/linux_id_rsa:/configuration/id_rsa
+        - ./data/linux_id_rsa.pub:/configuration/id_rsa.pub
+    node2:
+      container_name: node2
+      build:
+        context: node
+      ports:
+         - "22"
+      environment:
+        - SSHD_PORT=22
+      volumes:
+        - ./data/linux_id_rsa:/configuration/id_rsa
+        - ./data/linux_id_rsa.pub:/configuration/id_rsa.pub
+    node3:
+      container_name: node3
+      build:
+        context: node
+      ports:
+         - "22"
+      environment:
+        - SSHD_PORT=22
+      volumes:
+        - ./data/linux_id_rsa:/configuration/id_rsa
+        - ./data/linux_id_rsa.pub:/configuration/id_rsa.pub
