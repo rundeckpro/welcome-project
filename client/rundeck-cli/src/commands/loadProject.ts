@@ -138,12 +138,12 @@ builder(yargs: Argv) {
                     const content = await FS.readFile(acl.file, 'utf8')
                     const resp = await createAcl(client, acl.name, content);
                     if(resp.error){
-                        console.error("Error creating key")
+                        console.error("Error creating acls")
                         console.info(resp.message)
                     }
 
                 }catch(e){
-                    console.log("Error importing key" + acl.name + ":" + e);
+                    console.log("Error importing acls" + acl.name + ":" + e);
                 }
 
             });
