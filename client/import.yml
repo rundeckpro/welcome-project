@@ -8,5 +8,5 @@ keys:
     file: data/linux_id_rsa
 
 acls:
-  - name: healthck
+  - name: healthck.aclpolicy
     file: data/healthck.aclpolicy

@@ -133,7 +133,8 @@ builder(yargs: Argv) {
             console.log("----------------------------------");
 
             await asyncForEach(acls, async (acl) => {
-                console.log("importing acls" + acl.name);
+                console.log("importing acls " + acl.name);
+                console.log("from file: " + acl.file);
                 try{
                     const content = await FS.readFile(acl.file, 'utf8')
                     const resp = await createAcl(client, acl.name, content);
