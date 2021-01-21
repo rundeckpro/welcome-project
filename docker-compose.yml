@@ -47,6 +47,7 @@ services:
       volumes:
         - ./data/linux_id_rsa:/rundeck-cli/data/linux_id_rsa
         - ./data/healthck.aclpolicy:/rundeck-cli/data/healthck.aclpolicy
+        - ./data/user.aclpolicy:/rundeck-cli/data/user.aclpolicy
     node:
       container_name: node1
       build:

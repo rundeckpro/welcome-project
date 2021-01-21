@@ -10,3 +10,11 @@ keys:
 acls:
   - name: healthck.aclpolicy
     file: data/healthck.aclpolicy
+  - name: UserAccess.aclpolicy
+    file: data/user.aclpolicy
+
+users:
+  - username: alice
+    email: alice@rundeck.com
+  - username: betty
+    email: betty@rundeck.com

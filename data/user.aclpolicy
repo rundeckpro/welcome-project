@@ -1,0 +1,93 @@
+by:
+  group: user
+description: Allow Welcome Project Access
+for:
+  node:
+  - allow:
+    - '*'
+context:
+  project: welcome-project
+---
+by:
+  group: user
+description: Allow [read, view] for job
+for:
+  job:
+  - allow:
+    - view
+    - read
+context:
+  project: welcome-project
+---
+by:
+  group: user
+description: Allow Storage Access
+for:
+  storage:
+  - allow:
+    - read
+context:
+  application: rundeck
+---
+by:
+  group: user
+description: Allow [read] for project
+for:
+  project:
+  - allow:
+    - read
+context:
+  application: rundeck
+---
+by:
+  group: user
+description: Allow [read] for (All) event
+for:
+  resource:
+  - allow:
+    - read
+    equals:
+      kind: event
+context:
+  project: welcome-project
+---
+by:
+  group: user
+description: Allow [read, view, run] for job
+for:
+  job:
+  - allow:
+    - view
+    - read
+    - run
+    equals:
+      group: Demo/Linux
+context:
+  project: welcome-project
+---
+by:
+  group: user
+description: Allow [read, view, run] for job
+for:
+  job:
+  - allow:
+    - view
+    - read
+    - run
+    equals:
+      group: Demo
+context:
+  project: welcome-project
+
+---
+by:
+  group: user
+description: Allow [read] for (All) node
+for:
+  resource:
+  - allow:
+    - read
+    equals:
+      kind: node
+context:
+  project: welcome-project
