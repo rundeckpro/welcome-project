@@ -36,24 +36,32 @@ docker logs -f rundeck
 docker-compose up -d --scale node=5
 ```
 
-**Stop**
-
-```
-docker-compose down
-```
-
-**Clean**
-Will remove all associated volumes and images.
-```
-docker-compose down --volume --rmi all
-```
-
 **Accessing Rundeck**
 
 To access Rundeck, head to http://localhost:4440 and login using the following credentials:
 
 username: `admin`<br>
 password: `admin`
+
+
+**Stop**
+Use the following command to stop the system, but keep the work you've done so far:
+
+```
+docker-compose stop
+```
+
+To remove the containers that were built and free up space on your machine:
+
+```
+docker-compose down
+```
+
+**Full Clean**
+This command will remove all associated volumes and images as well.
+```
+docker-compose down --volume --rmi all
+```
 
 
 ## Assistance
