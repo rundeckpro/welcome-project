@@ -16,5 +16,5 @@ acls:
 users:
   - username: alice
     email: alice@rundeck.com
-  - username: betty
-    email: betty@rundeck.com
+  - username: bonny
+    email: bonny@rundeck.com
