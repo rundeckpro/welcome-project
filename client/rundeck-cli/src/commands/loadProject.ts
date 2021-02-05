@@ -164,52 +164,56 @@ builder(yargs: Argv) {
             const project_name = project.name;
 
             console.log("create project");
-
+            var projectImport = false;
             try{
                 const resp =  await createProject(client, project_name);
 
                 if(resp.error){
-                    console.error("Error creating project")
-                    console.error(resp.message)
+                    console.error("Error creating project");
+                    console.error(resp.message);
+                } else {
+                  projectImport = true;
                 }
             }catch(e){
                 console.error("error creating project" + project_name + ":" + e);
             }
 
-            const importFileName = Path.join(path, project.archive);
+            if(projectImport == true){
+              const importFileName = Path.join(path, project.archive);
 
-            const tokenResponse = await client.sendRequest({
-                headers: {'Content-Type': 'application/json'},
-                pathTemplate: `/api/36/tokens/{username}`,
-                pathParameters: {username: username},
-                baseUrl: rundeckUrl,
-                method: 'POST',
-                body: {
-                    "user": username,
-                    "roles": [
-                      "admin",
-                    ],
-                    "duration": "30d"
+              const tokenResponse = await client.sendRequest({
+                  headers: {'Content-Type': 'application/json'},
+                  pathTemplate: `/api/36/tokens/{username}`,
+                  pathParameters: {username: username},
+                  baseUrl: rundeckUrl,
+                  method: 'POST',
+                  body: {
+                      "user": username,
+                      "roles": [
+                        "admin",
+                      ],
+                      "duration": "30d"
+                    }
+                });
+
+              let token = tokenResponse.parsedBody.token
+              console.log("import project");
+
+              try{
+                  let file = await FS.readFile(importFileName);
+
+                  const headers = {
+                      'X-Rundeck-Auth-token': token,
+                      'Content-Type': 'application/zip',
                   }
-              });
 
-            let token = tokenResponse.parsedBody.token
-            console.log("import project");
+                  fetch(`${rundeckUrl}/api/34/project/${project_name}/import?importConfig=true&importACL=true&jobUuidOption=preserve&importWebhooks=true&importComponents.tours-manager=true&importOpts.tours-manager.enabled=true&importComponents.calendars=true&importComponents.Schedule%20Definitions=true`,
+                      { method: 'PUT', body: file, headers:headers, })
+                      .then(res => console.log(res));
 
-            try{
-                let file = await FS.readFile(importFileName);
-
-                const headers = {
-                    'X-Rundeck-Auth-token': token,
-                    'Content-Type': 'application/zip',
-                }
-
-                fetch(`${rundeckUrl}/api/34/project/${project_name}/import?importConfig=true&importACL=true&jobUuidOption=preserve&importWebhooks=true&importComponents.tours-manager=true&importOpts.tours-manager.enabled=true&importComponents.calendars=true&importComponents.Schedule%20Definitions=true`,
-                    { method: 'PUT', body: file, headers:headers, })
-                    .then(res => console.log(res));
-
-            }catch(e){
-                console.log("Error importing project" + project_name + ":" + e);
+              }catch(e){
+                  console.log("Error importing project" + project_name + ":" + e);
+              }
             }
             console.log("----------------------------------");
 
