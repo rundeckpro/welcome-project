@@ -74,7 +74,8 @@ builder(yargs: Argv) {
         const path = opts.path;
         const config_file = path + '/' + opts.config_file
 
-        console.log("starting");
+        console.log("----------++++++++++++------------")
+        console.log("Load Project Script Start")
         const file = await FS.readFile(config_file, 'utf8')
         const config = YAML.parse(file)
 
@@ -218,9 +219,8 @@ builder(yargs: Argv) {
             console.log("----------------------------------");
 
         });
-
-        console.log("----------------------------------");
-        console.log("finish");
+        console.log("Load Project Script Finish");
+        console.log("----------++++++++++++------------")
     }
 
 }
