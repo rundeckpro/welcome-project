@@ -70,7 +70,7 @@ services:
         - ./data/linux_id_rsa:/configuration/id_rsa
         - ./data/linux_id_rsa.pub:/configuration/id_rsa.pub
     node3:
-      container_name: node2
+      container_name: node3
       image: rundeck/node-demo
       ports:
          - "22"
