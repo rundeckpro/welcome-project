@@ -66,3 +66,6 @@ docker-compose down --volume --rmi all
 
 ## Assistance
 For help or questions with this image please email `hello@rundeck.com` and we will do our best to help.
+
+### Disclaimer
+Some of the setup/installation methods used in this environment are not recommended for production deployments. Do not run this environment for production purposes or with sensitive data. For installation best practices follow our docs site and guidance from our world class Support team.

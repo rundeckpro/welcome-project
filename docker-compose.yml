@@ -5,7 +5,7 @@ services:
         build:
           context: rundeck
           args:
-            RUNDECK_IMAGE: ${RUNDECK_IMAGE:-rundeckpro/enterprise:3.3.9}
+            RUNDECK_IMAGE: ${RUNDECK_IMAGE:-rundeckpro/enterprise:3.3.10}
         links:
           - mysql
         environment:

@@ -108,7 +108,7 @@ builder(yargs: Argv) {
                     console.log(user)
 
                 }catch(e){
-                    console.log("Error importing users" + usr.username + ":" + e);
+                    console.log("Error importing user" + usr.username + ":" + e);
                 }
 
         });
