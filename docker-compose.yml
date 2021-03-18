@@ -5,7 +5,7 @@ services:
         build:
           context: rundeck
           args:
-            RUNDECK_IMAGE: ${RUNDECK_IMAGE:-rundeckpro/enterprise:3.3.10}
+            RUNDECK_IMAGE: ${RUNDECK_IMAGE:-rundeckpro/enterprise:SNAPSHOT}
         links:
           - mysql
         environment:
@@ -18,8 +18,6 @@ services:
             RUNDECK_SECURITY_DBLOGIN_CREATEADMINUSERANDROLES: 'true'
             RUNDECK_SECURITY_DBLOGIN_ADMINUSERNAME: admin
             RUNDECK_SECURITY_DBLOGIN_ADMINPASSWORD: admin
-            RUNDECK_FEATURE_UINEXT_NAME: uiNext
-            RUNDECK_FEATURE_UINEXT_ENABLED: 'true'
             RUNDECK_PLUGIN_CLUSTER_REMOTEEXECUTION_ENABLED: 'false'
             RUNDECK_SERVER_ADDRESS: 0.0.0.0
         ports:
