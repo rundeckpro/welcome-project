@@ -1,0 +1,9 @@
+by:
+  group: system
+description: Health Check Storage Access
+for:
+  storage:
+  - allow:
+    - read
+context:
+  application: rundeck
