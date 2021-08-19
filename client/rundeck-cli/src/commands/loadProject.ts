@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, createStoragePassword, createProject, asyncForEach, createStoragePrivateKey, createAcl} from '../lib/util'
+import {waitForRundeckReady, createStoragePassword, createProject, asyncForEach, createStoragePrivateKey, updateProperty, createAcl} from '../lib/util'
 
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import Path from 'path'
@@ -20,6 +20,12 @@ interface Opts {
 interface Project {
     name: string,
     archive: string,
+    configuration: ProjectConfigurations[]
+}
+
+interface ProjectConfigurations {
+    key: string,
+    value: string
 }
 
 interface Key {
@@ -215,6 +221,18 @@ builder(yargs: Argv) {
               }catch(e){
                   console.log("Error importing project" + project_name + ":" + e);
               }
+            }
+            console.log("----------------------------------");
+            console.log('Configuring project: ' + project.name);
+            console.log("----------------------------------");
+
+            if(project.configuration!=null){
+                await asyncForEach(project.configuration, async (config) => {
+                    console.log('config: ' +config.key);
+                    console.log('value: ' +config.value);
+
+                    await updateProperty(client, project.name, config.key, config.value)
+                });
             }
             console.log("----------------------------------");
 
