@@ -28,6 +28,6 @@ cat $CONFIG_FILE
 ./bin/cli load --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
 ./bin/cli addUsers --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
 
-# update a value in a specified project
-# See rundeckpro/sensu-demo repo for detailed example use
-#./bin/cli update --rundeck_url $RUNDECK_URL --project_name "welcome-project" --input_value "none"
+sleep 10
+
+./bin/cli updateProject --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
