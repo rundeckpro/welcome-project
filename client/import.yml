@@ -68,7 +68,7 @@ acls:
     file: acls/user.aclpolicy
   - name: azure-demo-storage.aclpolicy
     file: acls/azure-demo-storage.aclpolicy
-  - name: system-healthcheck
+  - name: system-healthcheck.aclpolicy
     file: acls/system-healthcheck.aclpolicy
 
 users:
