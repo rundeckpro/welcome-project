@@ -24,6 +24,9 @@ sed -i 's#OCI_KEY_PATH#'"$OCI_KEY_PATH"'#g' $CONFIG_FILE
 
 cat $CONFIG_FILE
 
+chmod +x bin/cli
+
 # Load Rundeck Information (Projects, Users, etc.)
 ./bin/cli load --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
+./bin/cli updateProject --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
 ./bin/cli addUsers --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli

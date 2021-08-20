@@ -222,18 +222,7 @@ builder(yargs: Argv) {
                   console.log("Error importing project" + project_name + ":" + e);
               }
             }
-            console.log("----------------------------------");
-            console.log('Configuring project: ' + project.name);
-            console.log("----------------------------------");
 
-            if(project.configuration!=null){
-                await asyncForEach(project.configuration, async (config) => {
-                    console.log('config: ' +config.key);
-                    console.log('value: ' +config.value);
-
-                    await updateProperty(client, project.name, config.key, config.value)
-                });
-            }
             console.log("----------------------------------");
 
         });
