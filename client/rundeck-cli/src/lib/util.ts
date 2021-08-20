@@ -1,4 +1,6 @@
 import {Rundeck} from 'ts-rundeck'
+import * as dotenv from "dotenv";
+import YAML from 'yaml'
 
 
 export function sleep(ms: number): Promise<{}> {
@@ -107,4 +109,27 @@ export async function asyncForEach<T>(array: Array<T>, callback: (item: T, index
     for (let index = 0; index < array.length; index++) {
         await callback(array[index], index);
     }
+}
+
+export function loadConfigYaml(importYaml: string): any{
+    dotenv.config();
+
+    const env = process.env;
+
+    console.log(importYaml);
+
+    Object.keys(env).forEach(function(key) {
+      console.log('export ' + key + '="' + env[key] +'"');
+      let value = env[key] as string;
+
+      if(importYaml.includes(key)){
+        var re = new RegExp(key, 'g');
+        importYaml = importYaml.replace(re, value);
+      }
+
+    });
+    console.log(importYaml);
+    const config = YAML.parse(importYaml)
+    return config
+
 }

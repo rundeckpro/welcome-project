@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, updateProperty, asyncForEach} from '../lib/util'
+import {waitForRundeckReady, updateProperty, asyncForEach, loadConfigYaml} from '../lib/util'
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import * as FS from '../async/fs'
 import YAML from 'yaml'
@@ -70,7 +70,7 @@ builder(yargs: Argv) {
         console.log("----------------------------------")
 
         const file = await FS.readFile(config_file, 'utf8')
-        const config = YAML.parse(file)
+        const config = loadConfigYaml(file)
 
         const projects: Project[] = config.projects;
         console.log("----------------------------------");

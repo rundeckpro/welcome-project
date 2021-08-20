@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, createStoragePassword, createProject, asyncForEach, createStoragePrivateKey, createAcl} from '../lib/util'
+import {waitForRundeckReady, createStoragePassword, createProject, asyncForEach, loadConfigYaml, createAcl} from '../lib/util'
 
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import Path from 'path'
@@ -64,8 +64,8 @@ builder(yargs: Argv) {
         const config_file = path + '/' + opts.config_file
 
         console.log("starting");
-        const file = await FS.readFile(config_file, 'utf8')
-        const config = YAML.parse(file)
+        const file = await FS.readFile(config_file, 'utf8');
+        const config = loadConfigYaml(file);
 
         const users: User[]  = config.users;
 
