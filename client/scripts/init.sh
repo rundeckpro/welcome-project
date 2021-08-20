@@ -5,6 +5,10 @@ cat $CONFIG_FILE
 
 chmod +x bin/cli
 
+echo "Data Dir"
+ls -last /rundeck-cli/data
+echo "-----./d"
+
 # Load Rundeck Information (Projects, Users, etc.)
 ./bin/cli load --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
 ./bin/cli updateProject --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli

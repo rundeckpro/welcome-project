@@ -51,7 +51,7 @@ keys:
   - path: project/azure-demo/azure.key
     type: password
     content: AZURE_API_KEY
-  - path: project/gcp-demo/gcp-access-key.key
+  - path: project/gcp-demo/gcp-access-key.json
     type: privateKey
     file: GCP_KEY_PATH
   - path: project/aws-demo/secret.key
@@ -68,8 +68,8 @@ acls:
     file: acls/user.aclpolicy
   - name: azure-demo-storage.aclpolicy
     file: acls/azure-demo-storage.aclpolicy
-  - name: system-healtcheck
-    file: acls/system-healtcheck.aclpolicy
+  - name: system-healthcheck
+    file: acls/system-healthcheck.aclpolicy
 
 users:
   - username: alice

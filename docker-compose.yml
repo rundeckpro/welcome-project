@@ -25,7 +25,7 @@ services:
             # GCP
             RUNDECK_GCP_PROJECTID: ${GCP_PROJECTID}
             RUNDECK_GCP_ZONE: ${GCP_ZONE}
-            RUNDECK_GCP_KEYPATH: keys/project/gcp-demo/gcp-access-key.key
+            RUNDECK_GCP_KEYPATH: keys/project/gcp-demo/gcp-access-key.json
             # AWS
             RUNDECK_AWS_ACCESSKEY: ${AWS_ACCESS_KEY}
             RUNDECK_AWS_SECRETKEY_PATH: keys/project/aws-demo/secret.key
