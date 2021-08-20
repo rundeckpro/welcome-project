@@ -74,7 +74,7 @@ services:
         # GCP
         GCP_PROJECTID: ${GCP_PROJECTID}
         GCP_ZONE: ${GCP_ZONE}
-        GCP_KEY_PATH: ${GCP_KEY_PATH}
+        GCP_KEY_FILE: ${GCP_KEY_FILE}
         # AWS
         AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
         AWS_SECRET_KEY: ${AWS_SECRET_KEY}
@@ -87,7 +87,7 @@ services:
         OCI_KEY_PATH: ${OCI_KEY_PATH}
       volumes:
         - ./data/linux_id_rsa:/rundeck-cli/data/linux_id_rsa
-        - ./${GCP_KEY_PATH}:/rundeck-cli/data/gcp-access-key.json
+        - ./${GCP_KEY_FILE}:/rundeck-cli/data/gcp-access-key.json
         - ./${OCI_KEY_PATH}:/rundeck-cli/data/oracle-connection.pem
     node:
       container_name: node1

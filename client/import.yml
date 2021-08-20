@@ -53,7 +53,7 @@ keys:
     content: AZURE_API_KEY
   - path: project/gcp-demo/gcp-access-key.json
     type: privateKey
-    file: GCP_KEY_PATH
+    file: GCP_KEY_FILE
   - path: project/aws-demo/secret.key
     type: password
     content: AWS_SECRET_KEY
