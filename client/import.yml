@@ -84,3 +84,7 @@ users:
     email: eliot@rundeck.io
   - username: fred
     email: fred@rundeck.io
+
+settings:
+  - key: rundeck.gui.login.welcomeHtml
+    value: <b>Welcome Project Login Page</b>
