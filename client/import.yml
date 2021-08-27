@@ -26,3 +26,7 @@ users:
     email: eliot@rundeck.io
   - username: fred
     email: fred@rundeck.io
+
+settings:
+  - key: rundeck.gui.login.welcome
+    value: Welcome Project Login
