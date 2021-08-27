@@ -1,0 +1,21 @@
+by:
+  group: system
+for:
+  storage:
+    - match:
+        path: 'keys/.*'
+      allow: [read]
+description: Allow run on all nodes for system Health Checks
+context:
+  application: rundeck
+
+---
+
+by:
+  group: system
+for:
+  node:
+    - allow: run
+description: Allow run on all nodes for system Health Checks
+context:
+  project: '.*'
