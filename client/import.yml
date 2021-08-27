@@ -1,6 +1,9 @@
 projects:
   - name: welcome-project
     archive: projects/welcome-project.rdproject.jar
+    configuration:
+      - key: setting.example
+        value: REPLACEMENT_VALUE
 
 keys:
   - path: node/node.key
