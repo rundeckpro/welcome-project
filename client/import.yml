@@ -28,5 +28,5 @@ users:
     email: fred@rundeck.io
 
 settings:
-  - key: rundeck.gui.login.welcome
-    value: Welcome Project Login
+  - key: rundeck.gui.login.welcomeHtml
+    value: <b>Welcome Project Login Page</b>
