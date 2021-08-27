@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, createStoragePassword, createProject, asyncForEach, loadConfigYaml, createAcl} from '../lib/util'
+import {waitForRundeckReady, asyncForEach, loadConfigYaml} from '../lib/util'
 
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import Path from 'path'
@@ -18,14 +18,14 @@ interface Opts {
 }
 
 
-interface User{
-    username: string,
-    email: string,
+interface Setting{
+    key: string,
+    value: string,
 }
 
-class AddUserCommand {
-command = "addUsers"
-describe = "Add Rundeck Users"
+class AddSettingCommand {
+command = "addSettings"
+describe = "Add Rundeck Global Settings"
 
 builder(yargs: Argv) {
         return yargs
@@ -67,7 +67,7 @@ builder(yargs: Argv) {
         const file = await FS.readFile(config_file, 'utf8')
         const config = loadConfigYaml(file);
 
-        const users: User[]  = config.users;
+        const settings: Setting[]  = config.settings;
 
         const username = 'admin'
         const password = 'admin'
@@ -78,37 +78,37 @@ builder(yargs: Argv) {
         console.log("Rundeck started!!!");
 
         console.log("----------------------------------");
-        console.log("Importing Users");
+        console.log("Import Global Settings");
         console.log("----------------------------------");
 
-        if (users != null) {
+        if (settings != null) {
             console.log("----------------------------------");
-            console.log("importing users");
+            console.log("Importing Global Settings");
             console.log("----------------------------------");
 
-            await asyncForEach(users, async (usr) => {
-                console.log("importing user: " + usr.username);
-                console.log("email: " + usr.email);
+            await asyncForEach(settings, async (setting) => {
+                console.log("importing setting: " + setting.key);
+                console.log("value: " + setting.value);
                try{
-                    const userResponse = client.sendRequest({
+                    const settingResponse = client.sendRequest({
                       headers: {'Content-Type': 'application/json'},
                       baseUrl: rundeckUrl,
-                      pathTemplate: "/api/36/secure/users/create",
-                      method: 'PUT',
-                      body: {
-                        "username" : usr.username,
-                        "email": usr.email,
-                        "pwd": "admin",
-                        "confirmpwd": "admin",
-                        "roles": ["user"]
-                      }
-                    });
+                      pathTemplate: "/api/38/config/save",
+                      method: 'POST',
+                      body: {props: [
+                        {
+                          "key" : setting.key,
+                          "value": setting.value
+                        }
+                      ]
+                    }
+                  });
 
-                    let user = JSON.stringify(userResponse)
-                    console.log(user)
+                    let setting_resp = JSON.stringify(settingResponse)
+                    console.log(setting_resp)
 
                 }catch(e){
-                    console.log("Error importing user" + usr.username + ":" + e);
+                    console.log("Error importing setting" + setting.key + ":" + e);
                 }
 
         });
@@ -117,4 +117,4 @@ builder(yargs: Argv) {
     }
   }
 
-module.exports = new AddUserCommand()
+module.exports = new AddSettingCommand()
