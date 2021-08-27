@@ -20,6 +20,12 @@ interface Opts {
 interface Project {
     name: string,
     archive: string,
+    configuration: ProjectConfigurations[]
+}
+
+interface ProjectConfigurations {
+    key: string,
+    value: string
 }
 
 interface Key {

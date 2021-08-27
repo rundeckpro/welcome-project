@@ -12,9 +12,11 @@ keys:
 
 acls:
   - name: healthck.aclpolicy
-    file: data/healthck.aclpolicy
+    file: acls/healthck.aclpolicy
   - name: UserAccess.aclpolicy
-    file: data/user.aclpolicy
+    file: acls/user.aclpolicy
+  - name: system-healthcheck.aclpolicy
+    file: acls/system-healthcheck.aclpolicy
 
 users:
   - username: alice
