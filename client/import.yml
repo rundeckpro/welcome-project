@@ -1,6 +1,9 @@
 projects:
   - name: welcome-project
     archive: projects/welcome-project.rdproject.jar
+    configuration:
+      - key: setting.example
+        value: REPLACEMENT_VALUE
 
 keys:
   - path: node/node.key
@@ -9,9 +12,11 @@ keys:
 
 acls:
   - name: healthck.aclpolicy
-    file: data/healthck.aclpolicy
+    file: acls/healthck.aclpolicy
   - name: UserAccess.aclpolicy
-    file: data/user.aclpolicy
+    file: acls/user.aclpolicy
+  - name: system-healthcheck.aclpolicy
+    file: acls/system-healthcheck.aclpolicy
 
 users:
   - username: alice
@@ -26,3 +31,7 @@ users:
     email: eliot@rundeck.io
   - username: fred
     email: fred@rundeck.io
+
+settings:
+  - key: rundeck.gui.login.welcomeHtml
+    value: <b>Welcome Project Login Page</b>

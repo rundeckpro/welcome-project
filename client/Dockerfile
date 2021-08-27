@@ -7,6 +7,7 @@ RUN mkdir /rundeck-cli
 COPY rundeck-cli /rundeck-cli
 COPY project /rundeck-cli/projects
 COPY import.yml /rundeck-cli
+COPY acls /rundeck-cli/acls
 
 WORKDIR /rundeck-cli
 

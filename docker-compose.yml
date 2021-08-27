@@ -20,6 +20,8 @@ services:
             RUNDECK_SECURITY_DBLOGIN_ADMINPASSWORD: admin
             RUNDECK_PLUGIN_CLUSTER_REMOTEEXECUTION_ENABLED: 'false'
             RUNDECK_SERVER_ADDRESS: 0.0.0.0
+            RUNDECK_FEATURE_ENTERPRISEACL_ENABLED: 'false'
+            RUNDECK_FEATURE_ENTERPRISEACLTRANSFER_ENABLED: 'false'
         ports:
           - 4440:4440
         volumes:
@@ -47,8 +49,6 @@ services:
         RUNDECK_TOKEN: u5gJoKU3NpS6IC4lFmPQFfDkUlZnQOXp
       volumes:
         - ./data/linux_id_rsa:/rundeck-cli/data/linux_id_rsa
-        - ./data/healthck.aclpolicy:/rundeck-cli/data/healthck.aclpolicy
-        - ./data/user.aclpolicy:/rundeck-cli/data/user.aclpolicy
     node:
       container_name: node1
       image: rundeck/node-demo
@@ -61,16 +61,6 @@ services:
         - ./data/linux_id_rsa.pub:/configuration/id_rsa.pub
     node2:
       container_name: node2
-      image: rundeck/node-demo
-      ports:
-         - "22"
-      environment:
-        - SSHD_PORT=22
-      volumes:
-        - ./data/linux_id_rsa:/configuration/id_rsa
-        - ./data/linux_id_rsa.pub:/configuration/id_rsa.pub
-    node3:
-      container_name: node3
       image: rundeck/node-demo
       ports:
          - "22"

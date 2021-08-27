@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, createStoragePassword, createProject, asyncForEach, createStoragePrivateKey, createAcl} from '../lib/util'
+import {waitForRundeckReady, createStoragePassword, createProject, asyncForEach, createStoragePrivateKey, loadConfigYaml, createAcl} from '../lib/util'
 
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import Path from 'path'
@@ -20,6 +20,12 @@ interface Opts {
 interface Project {
     name: string,
     archive: string,
+    configuration: ProjectConfigurations[]
+}
+
+interface ProjectConfigurations {
+    key: string,
+    value: string
 }
 
 interface Key {
@@ -77,7 +83,7 @@ builder(yargs: Argv) {
         console.log("----------++++++++++++------------")
         console.log("Load Project Script Start")
         const file = await FS.readFile(config_file, 'utf8')
-        const config = YAML.parse(file)
+        const config = loadConfigYaml(file);
 
         const projects: Project[] = config.projects;
         const keys: Key[] = config.keys;
