@@ -88,3 +88,31 @@ users:
 settings:
   - key: rundeck.gui.login.welcomeHtml
     value: <b>Welcome Project Login Page</b>
+  - key: oracle.tenant_id
+    value: OCI_TENANTID
+  - key: oracle.user_id
+    value: OCI_USERID
+  - key: oracle.region
+    value: OCI_REGION
+  - key: oracle.fingerprint
+    value: OCI_FINGERPRINT
+  - key: oracle.private_key_path
+    value: keys/project/oracle-cloud-demo/connection.pem
+  - key: gcp.access_key_path
+    value: keys/project/gcp-demo/gcp-access-key.json
+  - key: gcp.projectId
+    value: GCP_PROJECTID
+  - key: gcp.zone
+    value: GCP_ZONE
+  - key: azure.clientId
+    value: AZURE_CLIENTID
+  - key: azure.keyPath
+    value: keys/project/azure-demo/azure.key
+  - key: azure.subscriptionId
+    value: AZURE_SUBSCRIPTIONID
+  - key: azure.tenantId
+    value: AZURE_TENANTID
+  - key: aws.access_key
+    value: AWS_ACCESS_KEY
+  - key: aws.secret_key_path
+    value: keys/project/aws-demo/secret.key
