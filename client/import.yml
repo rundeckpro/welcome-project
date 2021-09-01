@@ -16,6 +16,8 @@ projects:
         value: AZURE_SUBSCRIPTIONID
       - key: project.healthcheck.plugin.1.config.tenantId
         value: AZURE_TENANTID
+      - key: project.jobs.gui.groupExpandLevel
+        value: "-1"
   - name: aws-demo
     archive: projects/aws-demo.rdproject.jar
     configuration:
@@ -23,6 +25,8 @@ projects:
         value: AWS_ACCESS_KEY
       - key: resources.source.2.config.secretKey
         value: AWS_SECRET_KEY
+      - key: project.jobs.gui.groupExpandLevel
+        value: "-1"
   - name: gcp-demo
     archive: projects/gcp-demo.rdproject.jar
     configuration:
@@ -30,6 +34,10 @@ projects:
         value: GCP_PROJECTID
       - key: resources.source.2.config.zone
         value: GCP_ZONE
+      - key: resources.source.2.config.accessKey
+        value: keys/project/gcp-demo/gcp-access-key.json
+      - key: project.jobs.gui.groupExpandLevel
+        value: "-1"
   - name: oracle-cloud-demo
     archive: projects/oracle-cloud-demo.rdproject.jar
     configuration:
@@ -43,6 +51,8 @@ projects:
         value: OCI_REGION
       - key: resources.source.1.config.user_id
         value: OCI_USERID
+      - key: project.jobs.gui.groupExpandLevel
+        value: "-1"
 
 keys:
   - path: node/node.key
@@ -116,3 +126,5 @@ settings:
     value: AWS_ACCESS_KEY
   - key: aws.secret_key_path
     value: keys/project/aws-demo/secret.key
+  - key: aws.region
+    value: AWS_REGION
