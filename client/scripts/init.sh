@@ -10,7 +10,7 @@ ls -last /rundeck-cli/data
 echo "-----"
 
 # load project
+./bin/cli addSettings --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
 ./bin/cli load --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
 ./bin/cli updateProject --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
 ./bin/cli addUsers --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
-./bin/cli addSettings --rundeck_url $RUNDECK_URL --config_file "$CONFIG_FILE" --path /rundeck-cli
