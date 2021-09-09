@@ -1,73 +1,68 @@
 projects:
   - name: welcome-project
     archive: projects/welcome-project.rdproject.jar
-  - name: azure-demo
-    archive: projects/azure-demo.rdproject.jar
-    configuration:
-      - key: resources.source.2.config.client
-        value: AZURE_CLIENTID
-      - key: resources.source.2.config.subscriptionId
-        value: AZURE_SUBSCRIPTIONID
-      - key: resources.source.2.config.tenant
-        value: AZURE_TENANTID
-      - key: project.healthcheck.plugin.1.config.clientId
-        value: AZURE_CLIENTID
-      - key: project.healthcheck.plugin.1.config.subscriptionId
-        value: AZURE_SUBSCRIPTIONID
-      - key: project.healthcheck.plugin.1.config.tenantId
-        value: AZURE_TENANTID
-      - key: project.jobs.gui.groupExpandLevel
-        value: "-1"
-  - name: aws-demo
-    archive: projects/aws-demo.rdproject.jar
     configuration:
       - key: resources.source.2.config.accessKey
         value: AWS_ACCESS_KEY
       - key: resources.source.2.config.secretKey
         value: AWS_SECRET_KEY
-      - key: project.jobs.gui.groupExpandLevel
-        value: "-1"
-  - name: gcp-demo
-    archive: projects/gcp-demo.rdproject.jar
-    configuration:
-      - key: resources.source.2.config.projectId
+      - key: resources.source.3.config.client
+        value: AZURE_CLIENTID
+      - key: resources.source.3.config.subscriptionId
+        value: AZURE_SUBSCRIPTIONID
+      - key: resources.source.3.config.tenant
+        value: AZURE_TENANTID
+      - key: resources.source.3.config.keyStoragePath
+        value: keys/project/welcome-project/azure.key
+      - key: project.healthcheck.plugin.2.config.clientId
+        value: AZURE_CLIENTID
+      - key: project.healthcheck.plugin.2.config.subscriptionId
+        value: AZURE_SUBSCRIPTIONID
+      - key: project.healthcheck.plugin.2.config.tenantId
+        value: AZURE_TENANTID
+      - key: resources.source.4.config.projectId
         value: GCP_PROJECTID
-      - key: resources.source.2.config.zone
+      - key: resources.source.4.config.zone
         value: GCP_ZONE
-      - key: resources.source.2.config.accessKey
-        value: keys/project/gcp-demo/gcp-access-key.json
-      - key: project.jobs.gui.groupExpandLevel
-        value: "-1"
-  - name: oracle-cloud-demo
-    archive: projects/oracle-cloud-demo.rdproject.jar
-    configuration:
-      - key: resources.source.1.config.compartmentId
+      - key: resources.source.4.config.accessKey
+        value: keys/project/welcome-project/gcp-access-key.json
+      - key: resources.source.5.config.compartmentId
         value: OCI_TENANTID
-      - key: resources.source.1.config.fingerprint
+      - key: resources.source.5.config.fingerprint
         value: OCI_FINGERPRINT
-      - key: resources.source.1.config.tenant_id
+      - key: resources.source.5.config.tenant_id
         value: OCI_TENANTID
-      - key: resources.source.1.config.region
+      - key: resources.source.5.config.region
         value: OCI_REGION
-      - key: resources.source.1.config.user_id
+      - key: resources.source.5.config.user_id
         value: OCI_USERID
-      - key: project.jobs.gui.groupExpandLevel
-        value: "-1"
+      - key: resources.source.5.config.privatekey
+        value: keys/project/welcome-project/oracle-key.pem
+      - key: project.healthcheck.plugin.3.config.defaultRegion
+        value: OCI_REGION
+      - key: project.healthcheck.plugin.3.config.fingerprint
+        value: OCI_FINGERPRINT
+      - key: project.healthcheck.plugin.3.config.pemFilePath
+        value: keys/project/welcome-project/oracle-key.pem
+      - key: project.healthcheck.plugin.3.config.tenantId
+        value: OCI_TENANTID
+      - key: project.healthcheck.plugin.3.config.userId
+        value: OCI_USERID
 
 keys:
   - path: node/node.key
     type: privateKey
     file: data/linux_id_rsa
-  - path: project/azure-demo/azure.key
+  - path: project/welcome-project/azure.key
     type: password
     content: AZURE_API_KEY
-  - path: project/gcp-demo/gcp-access-key.json
+  - path: project/welcome-project/gcp-access-key.json
     type: privateKey
     file: GCP_KEY_FILE
-  - path: project/aws-demo/secret.key
+  - path: project/welcome-project/aws.key
     type: password
     content: AWS_SECRET_KEY
-  - path: project/oracle-cloud-demo/connection.pem
+  - path: project/welcome-project/oracle-key.pem
     type: privateKey
     file: OCI_KEY_PATH
 
@@ -107,9 +102,9 @@ settings:
   - key: oracle.fingerprint
     value: OCI_FINGERPRINT
   - key: oracle.private_key_path
-    value: keys/project/oracle-cloud-demo/connection.pem
+    value: keys/project/welcome-project/oracle-key.pem
   - key: gcp.access_key_path
-    value: keys/project/gcp-demo/gcp-access-key.json
+    value: keys/project/welcome-project/gcp-access-key.json
   - key: gcp.projectId
     value: GCP_PROJECTID
   - key: gcp.zone
@@ -117,7 +112,7 @@ settings:
   - key: azure.clientId
     value: AZURE_CLIENTID
   - key: azure.keyPath
-    value: keys/project/azure-demo/azure.key
+    value: keys/project/welcome-project/azure.key
   - key: azure.subscriptionId
     value: AZURE_SUBSCRIPTIONID
   - key: azure.tenantId
@@ -125,6 +120,6 @@ settings:
   - key: aws.access_key
     value: AWS_ACCESS_KEY
   - key: aws.secret_key_path
-    value: keys/project/aws-demo/secret.key
+    value: keys/project/welcome-project/aws.key
   - key: aws.region
     value: AWS_REGION

@@ -23,25 +23,6 @@ services:
             RUNDECK_FEATURE_ENTERPRISEACLTRANSFER_ENABLED: 'false'
             RUNDECK_SERVER_ADDRESS: 0.0.0.0
             RUNDECK_GUI_STARTPAGE: jobs
-            # GCP
-            RUNDECK_GCP_PROJECTID: ${GCP_PROJECTID}
-            RUNDECK_GCP_ZONE: ${GCP_ZONE}
-            RUNDECK_GCP_KEYPATH: keys/project/gcp-demo/gcp-access-key.json
-            # AWS
-            RUNDECK_AWS_ACCESSKEY: ${AWS_ACCESS_KEY}
-            RUNDECK_AWS_SECRETKEY_PATH: keys/project/aws-demo/secret.key
-            RUNDECK_AWS_REGION: ${AWS_REGION}
-            # ORACLE
-            RUNDECK_OCI_TENANTID: ${OCI_TENANTID}
-            RUNDECK_OCI_USERID: ${OCI_USERID}
-            RUNDECK_OCI_FINGERPRINT: ${OCI_FINGERPRINT}
-            RUNDECK_OCI_KEYPATH: keys/project/oracle-cloud-demo/connection.pem
-            RUNDECK_OCI_REGION: ${OCI_REGION}
-            # Azure
-            RUNDECK_AZURE_TENANTID: ${AZURE_TENANTID}
-            RUNDECK_AZURE_KEYPATH: keys/project/azure-demo/azure.key
-            RUNDECK_AZURE_SUBSCRIPTIONID: ${AZURE_SUBSCRIPTIONID}
-            RUNDECK_AZURE_CLIENTID: ${AZURE_CLIENTID}
         ports:
           - 4440:4440
         volumes:
