@@ -64,7 +64,7 @@ builder(yargs: Argv) {
         const config_file = path + '/' + opts.config_file
 
         console.log("starting");
-        const file = await FS.readFile(config_file, 'utf8')
+        const file = await FS.readFile(config_file, 'utf8');
         const config = loadConfigYaml(file);
 
         const users: User[]  = config.users;

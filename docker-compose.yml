@@ -19,25 +19,31 @@ services:
             RUNDECK_SECURITY_DBLOGIN_ADMINUSERNAME: admin
             RUNDECK_SECURITY_DBLOGIN_ADMINPASSWORD: admin
             RUNDECK_PLUGIN_CLUSTER_REMOTEEXECUTION_ENABLED: 'false'
-            RUNDECK_SERVER_ADDRESS: 0.0.0.0
             RUNDECK_FEATURE_ENTERPRISEACL_ENABLED: 'false'
             RUNDECK_FEATURE_ENTERPRISEACLTRANSFER_ENABLED: 'false'
+            RUNDECK_SERVER_ADDRESS: 0.0.0.0
+            RUNDECK_GUI_STARTPAGE: jobs
         ports:
           - 4440:4440
         volumes:
           - ${RUNDECK_LICENSE_FILE:-/dev/null}:/home/rundeck/etc/rundeckpro-license.key
     mysql:
-        container_name: mysql
-        image: mysql:8
-        expose:
-          - 3306
-        cap_add:
-          - SYS_NICE  # CAP_SYS_NICE reduces error messages in console
-        environment:
-          - MYSQL_ROOT_PASSWORD=root
-          - MYSQL_DATABASE=rundeck
-          - MYSQL_USER=rundeck
-          - MYSQL_PASSWORD=rundeck
+      container_name: mysql
+      image: mysql:8
+      expose:
+        - 3306
+      cap_add:
+        - SYS_NICE  # CAP_SYS_NICE reduces error messages in console
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: rundeck
+        MYSQL_USER: rundeck
+        MYSQL_PASSWORD: rundeck
+      ulimits:
+        nofile:
+          soft: 20000
+          hard: 40000
+      command: --max-connections=1000
     client:
       container_name: client
       build:
@@ -47,8 +53,29 @@ services:
         RUNDECK_URL: http://rundeck:4440
         RUNDECK_API_URL: http://localhost:4440
         RUNDECK_TOKEN: u5gJoKU3NpS6IC4lFmPQFfDkUlZnQOXp
+        # AZURE
+        AZURE_API_KEY: ${AZURE_API_KEY}
+        AZURE_TENANTID: ${AZURE_TENANTID}
+        AZURE_SUBSCRIPTIONID: ${AZURE_SUBSCRIPTIONID}
+        AZURE_CLIENTID: ${AZURE_CLIENTID}
+        # GCP
+        GCP_PROJECTID: ${GCP_PROJECTID}
+        GCP_ZONE: ${GCP_ZONE}
+        GCP_KEY_FILE: ${GCP_KEY_FILE}
+        # AWS
+        AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+        AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+        AWS_REGION: ${AWS_REGION}
+        # ORACLE
+        OCI_TENANTID: ${OCI_TENANTID}
+        OCI_USERID: ${OCI_USERID}
+        OCI_FINGERPRINT: ${OCI_FINGERPRINT}
+        OCI_REGION: ${OCI_REGION}
+        OCI_KEY_PATH: ${OCI_KEY_PATH}
       volumes:
         - ./data/linux_id_rsa:/rundeck-cli/data/linux_id_rsa
+        - ./${GCP_KEY_FILE}:/rundeck-cli/data/gcp-access-key.json
+        - ./${OCI_KEY_PATH}:/rundeck-cli/data/oracle-connection.pem
     node:
       container_name: node1
       image: rundeck/node-demo
