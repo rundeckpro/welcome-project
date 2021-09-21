@@ -1,0 +1,8 @@
+by:
+  urn: project:azure-demo
+for:
+  storage:
+    - match:
+        path: 'keys/project/azure-demo/.*'
+      allow: [read]
+description: Allow access to key storage

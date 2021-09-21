@@ -222,6 +222,7 @@ builder(yargs: Argv) {
                   console.log("Error importing project" + project_name + ":" + e);
               }
             }
+
             console.log("----------------------------------");
 
         });
