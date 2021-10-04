@@ -23,10 +23,17 @@ services:
             RUNDECK_FEATURE_ENTERPRISEACLTRANSFER_ENABLED: 'false'
             RUNDECK_SERVER_ADDRESS: 0.0.0.0
             RUNDECK_GUI_STARTPAGE: jobs
+            # disabled plugins upload, plugin blacklist, disable local executor
+            RUNDECK_PLUGIN_BLOCKLISTFILE: /home/rundeck/blocklist.yaml
+            RUNDECK_DISABLED_LOCAL_EXECUTOR: "true"
+            RUNDECK_FEATURE_PLUGINSECURITY_ENABLED: "true"
+            RUNDECK_FEATURE_PLUGINSECURITY_NAME: pluginSecurity
+            RUNDECK_ENVARS_UNSETALL: "false"
         ports:
           - 4440:4440
         volumes:
           - ${RUNDECK_LICENSE_FILE:-/dev/null}:/home/rundeck/etc/rundeckpro-license.key
+          - ${RUNDECK_BLOCKLIST_FILE:-/dev/null}:/home/rundeck/blocklist.yaml
     mysql:
       container_name: mysql
       image: mysql:8
