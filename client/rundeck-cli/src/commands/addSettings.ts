@@ -95,13 +95,12 @@ builder(yargs: Argv) {
                       baseUrl: rundeckUrl,
                       pathTemplate: "/api/38/config/save",
                       method: 'POST',
-                      body: {props: [
+                      body: [
                         {
                           "key" : setting.key,
                           "value": setting.value
                         }
                       ]
-                    }
                   });
 
                     let setting_resp = JSON.stringify(settingResponse)
