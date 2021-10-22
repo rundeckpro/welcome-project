@@ -1,0 +1,59 @@
+
+dn: ou=Groups,dc=rundeck,dc=demo
+changetype: add
+objectclass: organizationalUnit
+ou: Groups
+
+dn: ou=Users,dc=rundeck,dc=demo
+changetype: add
+objectclass: organizationalUnit
+ou: Users
+
+dn: cn=developer,ou=Users,dc=rundeck,dc=demo
+changetype: add
+objectClass: person
+objectClass: top
+objectclass: inetOrgPerson
+cn: developer
+givenname: developer
+sn: Developer
+displayname: Developer User
+mail: developer@rd-demo.com
+userpassword: admin
+
+dn: cn=jobrunner,ou=Users,dc=rundeck,dc=demo
+changetype: add
+objectClass: person
+objectClass: top
+objectclass: inetOrgPerson
+cn: maintainer
+givenname: jobrunner
+sn: Maintainer
+displayname: Maintainer User
+mail: maintainer@rd-demo.com
+userpassword: admin
+
+dn: cn=rdadmin,ou=Users,dc=rundeck,dc=demo
+changetype: add
+objectClass: person
+objectClass: top
+objectclass: inetOrgPerson
+cn: admin_rd
+givenname: admin_rd
+sn: AdminRundeck
+displayname: Admin Rundeck User
+mail: admin_rd@rd-demo.com
+userpassword: admin
+
+dn: cn=RDAdmins,ou=Groups,dc=rundeck,dc=demo
+changetype: add
+cn: RDAdmins
+objectclass: groupOfUniqueNames
+uniqueMember: cn=rdadmin,dc=rundeck,dc=demo
+
+dn: cn=Staff,ou=Groups,dc=rundeck,dc=demo
+changetype: add
+cn: Staff
+objectclass: groupOfUniqueNames
+uniqueMember: cn=jobrunner,dc=rundeck,dc=demo
+uniqueMember: cn=developer,dc=rundeck,dc=demo

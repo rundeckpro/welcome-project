@@ -23,10 +23,35 @@ services:
             RUNDECK_FEATURE_ENTERPRISEACLTRANSFER_ENABLED: 'false'
             RUNDECK_SERVER_ADDRESS: 0.0.0.0
             RUNDECK_GUI_STARTPAGE: jobs
+            ​​RUNDECK_JAAS_MODULES_0: JettyCombinedLdapLoginModule
+            RUNDECK_JAAS_LDAP_PROVIDERURL: ldap://ldap:389
+            RUNDECK_JAAS_LDAP_BINDDN: cn=admin,ou=rundeck,ou=demo
+            RUNDECK_JAAS_LDAP_BINDPASSWORD: admin
+            RUNDECK_JAAS_LDAP_USERBASEDN: ou=Users,dc=rundeck,dc=demo
+            RUNDECK_JAAS_LDAP_ROLEBASEDN: ou=Groups,dc=rundeck,dc=demo
         ports:
           - 4440:4440
         volumes:
           - ${RUNDECK_LICENSE_FILE:-/dev/null}:/home/rundeck/etc/rundeckpro-license.key
+    ldap:
+      container_name: openldap
+      build:
+        context: ldap
+      expose:
+        - 389
+        - 636
+      environment:
+        LDAP_ADMIN_PASSWORD: "admin"
+        LDAP_BASE_DN: "dc=rundeck,dc=demo"
+        LDAP_DOMAIN: "rundeck.demo"
+    ldapadmin:
+      container_name: ldapadmin
+      image: osixia/phpldapadmin:0.7.2
+      ports:
+        - 8090:80
+      environment:
+        PHPLDAPADMIN_LDAP_HOSTS: openldap
+        PHPLDAPADMIN_HTTPS: 'false'
     mysql:
       container_name: mysql
       image: mysql:8
@@ -78,16 +103,6 @@ services:
         - ./${OCI_KEY_PATH}:/rundeck-cli/data/oracle-connection.pem
     node:
       container_name: node1
-      image: rundeck/node-demo
-      ports:
-         - "22"
-      environment:
-        - SSHD_PORT=22
-      volumes:
-        - ./data/linux_id_rsa:/configuration/id_rsa
-        - ./data/linux_id_rsa.pub:/configuration/id_rsa.pub
-    node2:
-      container_name: node2
       image: rundeck/node-demo
       ports:
          - "22"
