@@ -1,15 +1,15 @@
 
-dn: ou=Groups,dc=rundeck,dc=demo
+dn: ou=roles,dc=rundeck,dc=demo
 changetype: add
 objectclass: organizationalUnit
 ou: Groups
 
-dn: ou=Users,dc=rundeck,dc=demo
+dn: ou=users,dc=rundeck,dc=demo
 changetype: add
 objectclass: organizationalUnit
 ou: Users
 
-dn: cn=developer,ou=Users,dc=rundeck,dc=demo
+dn: cn=developer,ou=users,dc=rundeck,dc=demo
 changetype: add
 objectClass: person
 objectClass: top
@@ -21,7 +21,7 @@ displayname: Developer User
 mail: developer@rd-demo.com
 userpassword: admin
 
-dn: cn=jobrunner,ou=Users,dc=rundeck,dc=demo
+dn: cn=jobrunner,ou=users,dc=rundeck,dc=demo
 changetype: add
 objectClass: person
 objectClass: top
@@ -33,7 +33,7 @@ displayname: Maintainer User
 mail: maintainer@rd-demo.com
 userpassword: admin
 
-dn: cn=rdadmin,ou=Users,dc=rundeck,dc=demo
+dn: cn=rdadmin,ou=users,dc=rundeck,dc=demo
 changetype: add
 objectClass: person
 objectClass: top
@@ -45,13 +45,13 @@ displayname: Admin Rundeck User
 mail: admin_rd@rd-demo.com
 userpassword: admin
 
-dn: cn=RDAdmins,ou=Groups,dc=rundeck,dc=demo
+dn: cn=RDAdmins,ou=roles,dc=rundeck,dc=demo
 changetype: add
 cn: RDAdmins
 objectclass: groupOfUniqueNames
 uniqueMember: cn=rdadmin,dc=rundeck,dc=demo
 
-dn: cn=Staff,ou=Groups,dc=rundeck,dc=demo
+dn: cn=Staff,ou=roles,dc=rundeck,dc=demo
 changetype: add
 cn: Staff
 objectclass: groupOfUniqueNames

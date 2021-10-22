@@ -8,6 +8,7 @@ services:
             RUNDECK_IMAGE: ${RUNDECK_IMAGE:-rundeckpro/enterprise:SNAPSHOT}
         links:
           - mysql
+          - ldap
         environment:
             RUNDECK_GRAILS_URL: http://localhost:4440
             RUNDECK_DATABASE_DRIVER: org.mariadb.jdbc.Driver
@@ -23,12 +24,12 @@ services:
             RUNDECK_FEATURE_ENTERPRISEACLTRANSFER_ENABLED: 'false'
             RUNDECK_SERVER_ADDRESS: 0.0.0.0
             RUNDECK_GUI_STARTPAGE: jobs
-            ​​RUNDECK_JAAS_MODULES_0: JettyCombinedLdapLoginModule
+            RUNDECK_JAAS_MODULES_0: JettyCombinedLdapLoginModule
             RUNDECK_JAAS_LDAP_PROVIDERURL: ldap://ldap:389
-            RUNDECK_JAAS_LDAP_BINDDN: cn=admin,ou=rundeck,ou=demo
+            RUNDECK_JAAS_LDAP_BINDDN: cn=admin,dc=rundeck,dc=demo
             RUNDECK_JAAS_LDAP_BINDPASSWORD: admin
-            RUNDECK_JAAS_LDAP_USERBASEDN: ou=Users,dc=rundeck,dc=demo
-            RUNDECK_JAAS_LDAP_ROLEBASEDN: ou=Groups,dc=rundeck,dc=demo
+            RUNDECK_JAAS_LDAP_USERBASEDN: ou=users,dc=rundeck,dc=demo
+            RUNDECK_JAAS_LDAP_ROLEBASEDN: ou=roles,dc=rundeck,dc=demo
         ports:
           - 4440:4440
         volumes:
@@ -41,6 +42,7 @@ services:
         - 389
         - 636
       environment:
+        LDAP_ORGANISATION: RD Demo
         LDAP_ADMIN_PASSWORD: "admin"
         LDAP_BASE_DN: "dc=rundeck,dc=demo"
         LDAP_DOMAIN: "rundeck.demo"
