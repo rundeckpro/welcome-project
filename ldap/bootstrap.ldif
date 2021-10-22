@@ -48,12 +48,14 @@ userpassword: admin
 dn: cn=RDAdmins,ou=roles,dc=rundeck,dc=demo
 changetype: add
 cn: RDAdmins
+roleName: rdadmins
 objectclass: groupOfUniqueNames
-uniqueMember: cn=rdadmin,dc=rundeck,dc=demo
+uniqueMember: cn=rdadmin,ou=users,dc=rundeck,dc=demo
 
 dn: cn=Staff,ou=roles,dc=rundeck,dc=demo
 changetype: add
 cn: Staff
+roleName: staff
 objectclass: groupOfUniqueNames
-uniqueMember: cn=jobrunner,dc=rundeck,dc=demo
-uniqueMember: cn=developer,dc=rundeck,dc=demo
+uniqueMember: cn=jobrunner,ou=users,dc=rundeck,dc=demo
+uniqueMember: cn=developer,ou=users,dc=rundeck,dc=demo
