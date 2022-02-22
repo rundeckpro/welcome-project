@@ -1,6 +1,10 @@
 - defaultTab: output
-  description: Grabs recent logs from a specified Kubernetes selector (e.g. app=cartservice)
-    and posts to the PagerDuty incident.
+  description: |-
+    This Rundeck Job grabs recent logs from a specified Kubernetes selector (e.g. app=cartservice) and posts to the PagerDuty incident.
+
+    This job is a template-job provided by PagerDuty. It is designed to be invoked via [Automation-Actions](https://www.rundeck.com/rundeck-actions)
+
+    Documentation for this workflow can be found in the Learning section of our documentation [here](https://docs.rundeck.com/docs/learning/solutions/auto-incident-kubernetes-logs.html)
   executionEnabled: true
   group: Auto-Diagnostics
   id: 33ef389a-d45c-42d1-af56-3360ff0dade5
@@ -48,5 +52,5 @@
       type: pd-note-step
     keepgoing: false
     strategy: node-first
-  tags: 'k8s,pagerduty'
+  tags: 'auto-diagnostics,kubernetes,pagerduty'
   uuid: 33ef389a-d45c-42d1-af56-3360ff0dade5
