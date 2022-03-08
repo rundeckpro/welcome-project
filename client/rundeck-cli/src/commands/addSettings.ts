@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, asyncForEach, loadConfigYaml} from '../lib/util'
+import {waitForRundeckReady, asyncForEach, loadConfigYaml, createWaitForRundeckReady} from '../lib/util'
 
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import Path from 'path'
@@ -71,10 +71,14 @@ builder(yargs: Argv) {
 
         const username = 'admin'
         const password = 'admin'
+        await createWaitForRundeckReady(
+          () => new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {noRetryPolicy: true, baseUri: rundeckUrl}),
+          5 * 60 * 1000
+        )
+        console.info(`Client connected.`)
+
         const client = new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {baseUri: rundeckUrl})
 
-        console.log("Waiting for Rundeck");
-        await waitForRundeckReady(client);
         console.log("Rundeck started!!!");
 
         console.log("----------------------------------");
