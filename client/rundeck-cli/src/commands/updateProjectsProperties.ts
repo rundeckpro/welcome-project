@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, updateProperty, asyncForEach, loadConfigYaml} from '../lib/util'
+import {waitForRundeckReady, updateProperty, asyncForEach, loadConfigYaml, createWaitForRundeckReady} from '../lib/util'
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import * as FS from '../async/fs'
 import YAML from 'yaml'
@@ -63,10 +63,18 @@ builder(yargs: Argv) {
         const path = opts.path;
         const config_file = path + '/' + opts.config_file
 
-        const client = new Rundeck(new PasswordCredentialProvider(rundeckUrl, 'admin', 'admin'), {baseUri: rundeckUrl})
+        const username = 'admin'
+        const password = 'admin'
         console.log("waiting for rundeck")
-        await waitForRundeckReady(client)
-        console.log("rundeck started!!!")
+
+        await createWaitForRundeckReady(
+          () => new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {noRetryPolicy: true, baseUri: rundeckUrl}),
+          5 * 60 * 1000
+        )
+        console.info(`Client connected.`)
+
+        const client = new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {baseUri: rundeckUrl})
+
         console.log("----------------------------------")
 
         const file = await FS.readFile(config_file, 'utf8')
