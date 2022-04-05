@@ -48,6 +48,14 @@ projects:
         value: OCI_TENANTID
       - key: project.healthcheck.plugin.3.config.userId
         value: OCI_USERID
+      - key: project.healthcheck.plugin.4.config.accessKeyId
+        value: AWS_ACCESS_KEY
+      - key: project.healthcheck.plugin.4.config.region
+        value: AWS_REGION
+      - key: project.healthcheck.plugin.5.config.projectId
+        value: GCP_PROJECTID
+      - key: project.healthcheck.plugin.5.config.zone
+        value: GCP_ZONE
 
 keys:
   - path: node/node.key
