@@ -60,7 +60,7 @@ projects:
 keys:
   - path: node/node.key
     type: privateKey
-    file: data/linux_id_rsa
+    file: data/keys/id_rsa
   - path: project/welcome-project/azure.key
     type: password
     content: AZURE_API_KEY
