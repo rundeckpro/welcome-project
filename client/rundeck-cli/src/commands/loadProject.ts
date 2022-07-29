@@ -217,7 +217,7 @@ builder(yargs: Argv) {
                       'Content-Type': 'application/zip',
                   }
 
-                  fetch(`${rundeckUrl}/api/34/project/${project_name}/import?importConfig=true&importACL=true&jobUuidOption=preserve&importWebhooks=true&importComponents.tours-manager=true&importOpts.tours-manager.enabled=true&importComponents.calendars=true&importComponents.Schedule%20Definitions=true`,
+                  fetch(`${rundeckUrl}/api/34/project/${project_name}/import?importConfig=true&importACL=true&jobUuidOption=preserve&importWebhooks=true&importComponents.tours-manager=true&importOpts.tours-manager.enabled=true&importComponents.calendars=true&importComponents.node-wizard=true&importComponents.Schedule%20Definitions=true`,
                       { method: 'PUT', body: file, headers:headers, })
                       //.then(res => console.log(res));
 
