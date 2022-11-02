@@ -56,7 +56,7 @@ builder(yargs: Argv) {
                 default: false
             })
     }
-    
+
 
     async handler(opts: Opts) {
         const rundeckUrl = opts.rundeck_url
@@ -92,9 +92,9 @@ builder(yargs: Argv) {
             if(project.configuration!=null){
                 await asyncForEach(project.configuration, async (config) => {
                     console.log('config: ' +config.key);
-                    console.log('value: ' +config.value);
+                    console.log('value: ' +config.value.toString());
 
-                    await updateProperty(client, project.name, config.key, config.value)
+                    await updateProperty(client, project.name, config.key.toString(), config.value.toString())
                 });
             }
             console.log("----------------------------------");
