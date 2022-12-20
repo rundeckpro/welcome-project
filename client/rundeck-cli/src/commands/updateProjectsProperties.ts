@@ -1,11 +1,13 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, updateProperty, asyncForEach, loadConfigYaml, createWaitForRundeckReady} from '../lib/util'
+import {createWaitForRundeckReady, updateProperty, asyncForEach, loadConfigYaml, runeckLoginToken} from '../lib/util'
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import * as FS from '../async/fs'
 import YAML from 'yaml'
 
 interface Opts {
     rundeck_url: string,
+    username: string,
+    password: string,
     config_file: string,
     path: string,
     debug: boolean
@@ -36,6 +38,20 @@ builder(yargs: Argv) {
                 default: false,
                 require: true
             })
+            .option("ru", {
+                alias: "username",
+                describe: "Rundeck Username",
+                type: 'string',
+                default: false,
+                require: true
+            })
+            .option("rp", {
+                alias: "password",
+                describe: "Rundeck password",
+                type: 'string',
+                default: false,
+                require: true
+            })
             .option("f", {
                 alias: "config_file",
                 describe: "Config file",
@@ -56,24 +72,25 @@ builder(yargs: Argv) {
                 default: false
             })
     }
-    
+
 
     async handler(opts: Opts) {
         const rundeckUrl = opts.rundeck_url
         const path = opts.path;
         const config_file = path + '/' + opts.config_file
 
-        const username = 'admin'
-        const password = 'admin'
-        console.log("waiting for rundeck")
+        const username = opts.username
+        const password = opts.password
 
         await createWaitForRundeckReady(
-          () => new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {noRetryPolicy: true, baseUri: rundeckUrl}),
-          5 * 60 * 1000
+            () => new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {noRetryPolicy: true, baseUri: rundeckUrl}),
+        5 * 60 * 1000
         )
         console.info(`Client connected.`)
 
-        const client = new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {baseUri: rundeckUrl})
+        const rundeckAuth = await runeckLoginToken(rundeckUrl, username, password)
+        const token = rundeckAuth["token"]
+        const client = rundeckAuth["client"]
 
         console.log("----------------------------------")
 

@@ -131,3 +131,5 @@ settings:
     value: keys/project/welcome-project/aws.key
   - key: aws.region
     value: AWS_REGION
+  - key: rundeck.feature.pluginGroups.enabled
+    value: true
