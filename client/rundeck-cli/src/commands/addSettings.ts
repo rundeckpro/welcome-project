@@ -1,5 +1,5 @@
 import {Argv} from'yargs'
-import {waitForRundeckReady, asyncForEach, loadConfigYaml, createWaitForRundeckReady} from '../lib/util'
+import {waitForRundeckReady, asyncForEach, loadConfigYaml, runeckLoginToken, createWaitForRundeckReady} from '../lib/util'
 
 import { Rundeck, PasswordCredentialProvider}from 'ts-rundeck'
 import Path from 'path'
@@ -12,6 +12,8 @@ import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
 
 interface Opts {
     rundeck_url: string,
+    username: string,
+    password: string,
     config_file: string,
     path: string,
     debug: boolean
@@ -32,6 +34,20 @@ builder(yargs: Argv) {
             .option("r", {
                 alias: "rundeck_url",
                 describe: "Rundeck URL",
+                type: 'string',
+                default: false,
+                require: true
+            })
+            .option("ru", {
+                alias: "username",
+                describe: "Rundeck Username",
+                type: 'string',
+                default: false,
+                require: true
+            })
+            .option("rp", {
+                alias: "password",
+                describe: "Rundeck password",
                 type: 'string',
                 default: false,
                 require: true
@@ -69,15 +85,18 @@ builder(yargs: Argv) {
 
         const settings: Setting[]  = config.settings;
 
-        const username = 'admin'
-        const password = 'admin'
+        const username = opts.username
+        const password = opts.password
+
         await createWaitForRundeckReady(
           () => new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {noRetryPolicy: true, baseUri: rundeckUrl}),
           5 * 60 * 1000
         )
         console.info(`Client connected.`)
 
-        const client = new Rundeck(new PasswordCredentialProvider(rundeckUrl, username, password), {baseUri: rundeckUrl})
+        const rundeckAuth = await runeckLoginToken(rundeckUrl, username, password)
+        const token = rundeckAuth["token"]
+        const client = rundeckAuth["client"]
 
         console.log("Rundeck started!!!");
 
@@ -94,7 +113,7 @@ builder(yargs: Argv) {
                 console.log("importing setting: " + setting.key);
                 console.log("value: " + setting.value);
                try{
-                    const settingResponse = client.sendRequest({
+                    const settingResponse = await client.sendRequest({
                       headers: {'Content-Type': 'application/json'},
                       baseUrl: rundeckUrl,
                       pathTemplate: "/api/38/config/save",
