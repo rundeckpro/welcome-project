@@ -23,6 +23,7 @@ services:
             RUNDECK_FEATURE_ENTERPRISEACLTRANSFER_ENABLED: 'false'
             RUNDECK_SERVER_ADDRESS: 0.0.0.0
             RUNDECK_GUI_STARTPAGE: jobs
+            RUNDECK_LOGGING_STRATEGY: FILE
         ports:
           - 4440:4440
         volumes:
