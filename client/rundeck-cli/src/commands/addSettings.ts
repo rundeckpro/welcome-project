@@ -127,7 +127,7 @@ builder(yargs: Argv) {
                   });
 
                     let setting_resp = JSON.stringify(settingResponse)
-                    console.log(setting_resp)
+                    //console.log(setting_resp)
 
                 }catch(e){
                     console.log("Error importing setting" + setting.key + ":" + e);

@@ -40,6 +40,8 @@ services:
         MYSQL_DATABASE: rundeck
         MYSQL_USER: rundeck
         MYSQL_PASSWORD: rundeck
+      volumes:
+      - sql-datavolume:/var/lib/mysql
       ulimits:
         nofile:
           soft: 20000
@@ -104,3 +106,4 @@ services:
 
 volumes:
   shared-volume:
+  sql-datavolume:

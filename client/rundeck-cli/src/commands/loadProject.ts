@@ -119,43 +119,6 @@ builder(yargs: Argv) {
         const token = rundeckAuth["token"]
         const client = rundeckAuth["client"]
 
-        console.log("----------------------------------");
-        console.log("Importing keys");
-        console.log("----------------------------------");
-
-        await asyncForEach(keys, async (key) => {
-            console.log("Importing key" + key.path);
-
-            if(key.type == 'password'){
-                try{
-                    const resp = await createStoragePassword(client, key.path, key.content);
-
-                    if(resp.error){
-                        console.error("Error creating password")
-                        console.info(resp.message)
-                    }
-                }catch(e){
-                    console.log("error importing password" + key.path + ":" + e);
-                }
-            }
-
-            if(key.type == 'privateKey'){
-                try{
-                    const content = await FS.readFile(key.file, 'utf8')
-                    const resp = await createStoragePrivateKey(client, key.path, content);
-                    if(resp.error){
-                        console.error("Error creating key")
-                        console.info(resp.message)
-                    }
-
-                }catch(e){
-                    console.log("error importing key" + key.path + ":" + e);
-                }
-            }
-
-
-        });
-
         if (acls != null) {
             console.log("----------------------------------");
             console.log("importing acls");
@@ -178,6 +141,43 @@ builder(yargs: Argv) {
 
             });
         }
+
+        console.log("----------------------------------");
+        console.log("Importing keys");
+        console.log("----------------------------------");
+
+        await asyncForEach(keys, async (key) => {
+            console.log("Importing key: " + key.path);
+
+            if(key.type == 'password'){
+                try{
+                    const resp = await createStoragePassword(client, key.path, key.content);
+
+                    if(resp.error){
+                        console.error("Error creating password")
+                        console.info(resp.message)
+                    }
+                }catch(e){
+                    console.log("error importing password" + key.path + ":" + e);
+                }
+            }
+
+            if(key.type == 'privateKey'){
+                try{
+                    const content = await FS.readFile(key.file, 'utf8')
+                    const resp = await createStoragePrivateKey(client, key.path, content);
+                    if(resp.error){
+                        console.error(" -- Error creating key -- ")
+                        console.info(resp.message)
+                    }
+
+                }catch(e){
+                    console.log("-- Error importing key --" + key.path + ": " + e);
+                }
+            }
+
+
+        });
 
 
         console.log("----------------------------------");
