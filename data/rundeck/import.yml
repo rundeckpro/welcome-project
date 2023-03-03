@@ -60,19 +60,19 @@ projects:
 keys:
   - path: node/node.key
     type: privateKey
-    file: data/keys/id_rsa
+    file: keys/id_rsa
   - path: project/welcome-project/azure.key
     type: password
     content: AZURE_API_KEY
   - path: project/welcome-project/gcp-access-key.json
     type: privateKey
-    file: GCP_KEY_FILE
+    file: data/gcp-access-key.json
   - path: project/welcome-project/aws.key
     type: password
     content: AWS_SECRET_KEY
   - path: project/welcome-project/oracle-key.pem
     type: privateKey
-    file: OCI_KEY_PATH
+    file: data/oracle-connection.pem
 
 acls:
   - name: healthck.aclpolicy
