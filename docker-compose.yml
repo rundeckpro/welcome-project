@@ -49,7 +49,7 @@ services:
       command: --max-connections=1000
     client:
       container_name: client
-      image: rundeck/rundeck-cli
+      image: rundeckpro/env-builder:latest
       # generate key for nodes
       command: bash -c "rm -rf $${KEY_PATH} && mkdir -p $${KEY_PATH} && ssh-keygen -q -t rsa  -N '' -f $${KEY_PATH}/id_rsa && ./scripts/init.sh"
       environment:
