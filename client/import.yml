@@ -66,13 +66,13 @@ keys:
     content: AZURE_API_KEY
   - path: project/welcome-project/gcp-access-key.json
     type: privateKey
-    file: data/gcp-access-key.json
+    file: gcp-access-key.json
   - path: project/welcome-project/aws.key
     type: password
     content: AWS_SECRET_KEY
   - path: project/welcome-project/oracle-key.pem
     type: privateKey
-    file: data/oracle-connection.pem
+    file: oracle-connection.pem
 
 acls:
   - name: healthck.aclpolicy

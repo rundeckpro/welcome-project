@@ -49,9 +49,11 @@ services:
       command: --max-connections=1000
     client:
       container_name: client
-      image: rundeckpro/env-builder:latest
+      build:
+        context: client
+        args:
+          BUILD_DEV_IMAGE: ${BUILD_DEV_IMAGE:-rundeckpro/env-builder:latest}
       # generate key for nodes
-      command: bash -c "rm -rf $${KEY_PATH} && mkdir -p $${KEY_PATH} && ssh-keygen -q -t rsa  -N '' -f $${KEY_PATH}/id_rsa && ./scripts/init.sh"
       environment:
         CONFIG_FILE: /app/data/import.yml
         CONFIG_FILES_PATH: /app/data
@@ -80,8 +82,11 @@ services:
         OCI_USERID: ${OCI_USERID}
         OCI_FINGERPRINT: ${OCI_FINGERPRINT}
         OCI_REGION: ${OCI_REGION}
+        OCI_KEY_PATH: ${OCI_KEY_PATH}
       volumes:
-        - ./data/rundeck:/app/data
+        - shared-volume:/app/data/keys/
+        - ./${GCP_KEY_FILE}:/app/data/gcp-access-key.json
+        - ./${OCI_KEY_PATH}:/app/data/oracle-connection.pem
 
     node:
       container_name: node1
@@ -91,9 +96,9 @@ services:
          - "22"
       environment:
         - SSHD_PORT=22
-        - KEY_PATH=/data/keys
+        - KEY_PATH=/app/data
       volumes:
-        - ./data/rundeck:/data/
+        - shared-volume:/app/data/
     node2:
       container_name: node2
       build:
@@ -102,9 +107,10 @@ services:
          - "22"
       environment:
         - SSHD_PORT=22
-        - KEY_PATH=/data/keys
+        - KEY_PATH=/app/data
       volumes:
-        - ./data/rundeck:/data/
+        - shared-volume:/app/data/
 
 volumes:
+  shared-volume:
   sql-datavolume:
