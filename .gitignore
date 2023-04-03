@@ -5,4 +5,4 @@ client/.DS_Store
 *.key
 data/mysql
 data/rundeck/keys
-data/rundeck/sidecar
+data/rundeck/runner

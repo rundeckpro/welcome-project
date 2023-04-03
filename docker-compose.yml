@@ -52,7 +52,7 @@ services:
       build:
         context: client
         args:
-          BUILD_DEV_IMAGE: ${BUILD_DEV_IMAGE:-rundeckpro/env-builder:latest}
+          BUILD_DEV_IMAGE: ${BUILD_DEV_IMAGE:-rundeckpro/env-builder:0.1.2}
       # generate key for nodes
       environment:
         CONFIG_FILE: /app/data/import.yml
