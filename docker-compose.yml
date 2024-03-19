@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
     rundeck:
         container_name: rundeck
@@ -26,6 +26,13 @@ services:
             RUNDECK_LOGGING_STRATEGY: FILE
         ports:
           - 4440:4440
+        healthcheck:
+          test: curl -f http://localhost:4440 || exit 1
+          interval: 30s
+          timeout: 10s
+          retries: 5
+          start_period: 180s
+          start_interval: 10s
         volumes:
           - ${RUNDECK_LICENSE_FILE:-/dev/null}:/home/rundeck/etc/rundeckpro-license.key
     mysql:
@@ -87,9 +94,14 @@ services:
         - shared-volume:/app/data/keys/
         - ./${GCP_KEY_FILE}:/app/data/gcp-access-key.json
         - ./${OCI_KEY_PATH}:/app/data/oracle-connection.pem
-
+      links:
+        - rundeck
+      depends_on:
+        rundeck:
+          condition: service_healthy
     node:
-      container_name: node1
+      deploy:
+        replicas: 2
       build:
         context: node-demo
       ports:
@@ -99,17 +111,11 @@ services:
         - KEY_PATH=/app/data
       volumes:
         - shared-volume:/app/data/
-    node2:
-      container_name: node2
-      build:
-        context: node-demo
-      ports:
-         - "22"
-      environment:
-        - SSHD_PORT=22
-        - KEY_PATH=/app/data
-      volumes:
-        - shared-volume:/app/data/
+      links:
+        - client
+      depends_on:
+        client:
+          condition: service_completed_successfully
 
 volumes:
   shared-volume:
